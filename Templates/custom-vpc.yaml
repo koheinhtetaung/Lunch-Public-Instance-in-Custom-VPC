@@ -1,0 +1,121 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+#vpc Create
+  igotocloudmastervpc:
+    Type: AWS::EC2::VPC
+    Properties: 
+      CidrBlock: '192.168.0.0/16'
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      InstanceTenancy: 'default'
+      Tags: 
+        - Key: 'Name'
+          Value: 'my-new-vpc'
+#Public Subnet 1 Create
+  publicSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties: 
+      AvailabilityZone: 'ap-southeast-1a'
+      CidrBlock: '192.168.1.0/24'
+      MapPublicIpOnLaunch: true
+      Tags: 
+        - Key: 'Name'
+          Value: 'public-subnet1'
+      VpcId:
+        !Ref igotocloudmastervpc
+#Public Subnet2 Create
+  publicSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties: 
+      AvailabilityZone: 'ap-southeast-1b'
+      CidrBlock: '192.168.2.0/24'
+      MapPublicIpOnLaunch: true
+      Tags: 
+        - Key: 'Name'
+          Value: 'public-subnet2'
+      VpcId:
+        !Ref igotocloudmastervpc
+#Public Subnet3 Create
+  publicSubnet3:
+    Type: AWS::EC2::Subnet
+    Properties: 
+      AvailabilityZone: 'ap-southeast-1c'
+      CidrBlock: '192.168.3.0/24'
+      MapPublicIpOnLaunch: true
+      Tags: 
+        - Key: 'Name'
+          Value: 'public-subnet3'
+      VpcId:
+        !Ref igotocloudmastervpc
+#Create Custom Route Table and Associate with All Public subnets
+  publicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties: 
+      Tags: 
+        - Key: Name
+          Value: Public Route Table
+      VpcId:
+        !Ref igotocloudmastervpc
+  publicSubnet1Association:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties: 
+      RouteTableId: !Ref publicRouteTable
+      SubnetId: !Ref publicSubnet1
+  publicSubnet2Association:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties: 
+      RouteTableId: !Ref publicRouteTable
+      SubnetId: !Ref publicSubnet2
+  publicSubnet3Association:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties: 
+      RouteTableId: !Ref publicRouteTable
+      SubnetId: !Ref publicSubnet3
+#Internet GateWay Create
+  IGW:
+    Type: AWS::EC2::InternetGateway
+    Properties: 
+      Tags: 
+        - Key: 'Name'
+          Value: 'my-new-vpc-igw'
+#Attach igw and my-new-vpc
+  attachVPCAndIGW:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties: 
+      InternetGatewayId:
+        !Ref IGW
+      VpcId:
+        !Ref igotocloudmastervpc
+# Default Route To IGW in Main RouteTable
+  defaultRouteToIGW:
+    Type: AWS::EC2::Route
+    Properties: 
+      DestinationCidrBlock: '0.0.0.0/0'
+      GatewayId:
+        !Ref IGW
+      RouteTableId: !Ref publicRouteTable
+  EC2InstanceInZoneA:
+    Type: AWS::EC2::Instance
+    Properties: 
+      ImageId: ami-0d058fe428540cd89 #ubuntu 20.04 LTS
+      InstanceType: t2.micro
+      KeyName: SGkey
+      SubnetId: !Ref publicSubnet1
+      Tags: 
+        - Key: Name 
+          Value : PublicInstance
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+          sudo apt-get update -y
+          sudo apt-get install nginx -y
+          sudo chmod 666 /var/www/html/index.html
+          sudo echo "<html><h1 align='center'><p style='color:blue'>This Web Server run in Custom VPC' Zone-A.</p></h1></html>" > /var/www/html/index.html    
+  defaultSecurityGroupInboundRule:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: sg-019231f8d5901571c
+      IpProtocol: '-1'
+      FromPort: -1
+      ToPort: -1
+      CidrIp: '0.0.0.0/0'
