@@ -11,7 +11,7 @@
 5. NAT Gateway for Private instances
 6. Default Route to NAT Gateway
 
-# This project will create
+# This project will create following properties...
  - [custom-vpc.yaml](./Templates/custom-vpc.yaml)
 ```bash
 aws cloudformation create-stack --stack-name custom-vpc --template-body file://custom-vpc.yaml
