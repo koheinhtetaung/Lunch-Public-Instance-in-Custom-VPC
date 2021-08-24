@@ -11,8 +11,11 @@
 5. NAT Gateway for Private instances
 6. Default Route to NAT Gateway
 
-This project will create
+# This project will create
  - [custom-vpc.yaml](./Templates/custom-vpc.yaml)
+```bash
+aws cloudformation create-stack --stack-name custom-vpc --template-body file://custom-vpc.yaml
+```
 1. Custom VPC
 2. Public Subnet 1, 2 and 3 in Each AZ. (Note- default associated to Main Route Table.)
 3. Custom Route Table and Associate All Public Subnets
