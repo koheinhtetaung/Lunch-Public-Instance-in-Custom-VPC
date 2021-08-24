@@ -21,4 +21,4 @@ aws cloudformation create-stack --stack-name custom-vpc --template-body file://c
 3. Custom Route Table and Associate All Public Subnets
 4. Crate Internet Gateway
 5. Default Route to IGW in Custome Route Table.
-6. Create EC2 instance With userdata in custom VPC' zone-A.
+6. Create EC2 instance with userdata in custom VPC' zone-A.
