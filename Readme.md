@@ -1,4 +1,4 @@
-# When we create Custom VPC in AWS, by default
+# When we create custom VPC in AWS, by default
 - Main Route-Table
 - Security Group
 - Network ACL will automatically create.
@@ -6,9 +6,9 @@
 #  Next need to create 
 1. Subnets, like public subnets and private subnet
 2. Custom Route-Table, if need
-3. Internet Gateway for public instances
+3. Internet Gateway for public subnets.
 4. Default Route to IGW in Route Table
-5. NAT Gateway for Private instances
+5. NAT Gateway that is internet access for Private subnets.
 6. Default Route to NAT Gateway
 
 # This project will create following properties...
