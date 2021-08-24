@@ -3,7 +3,7 @@
 - Security Group
 - Network ACL will automatically create.
 
-#  Next need to create, if need..
+#  If need, have to create following...
 1. Subnets, like public subnets and private subnet
 2. Custom Route-Table, if need
 3. Internet Gateway for public subnets.
