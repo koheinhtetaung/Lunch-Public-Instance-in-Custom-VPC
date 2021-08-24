@@ -1,4 +1,4 @@
-# When we cureate custom VPC in AWS, by default
+# When we create custom VPC in AWS, by default
 - Main Route-Table
 - Security Group
 - Network ACL will automatically create.
