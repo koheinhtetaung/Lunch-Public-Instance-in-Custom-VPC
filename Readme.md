@@ -1,13 +1,17 @@
 # When we cureate custom VPC in AWS,
-- Main Route-Table, Security Group and Network ACL will automatically create. Next need to create 
-0. Subnets, like public subnets and private subnet
-1. Custom Route-Table, if need
-2. Internet Gateway for public instances
-3. Default Route to IGW in Route Table
-4. NAT Gateway for Private instances
-5. Default Route to NAT Gateway
+- Main Route-Table
+- Security Group
+- Network ACL will automatically create. Next need to create 
 
-This project will create 
+1. Subnets, like public subnets and private subnet
+2. Custom Route-Table, if need
+3. Internet Gateway for public instances
+4. Default Route to IGW in Route Table
+5. NAT Gateway for Private instances
+6. Default Route to NAT Gateway
+
+This project will create
+ - [custom-vpc.yaml](./Templates/custom-vpc.yaml)
 1. Custom VPC
 2. Public Subnet 1, 2 and 3 in Each AZ. (Note- default associated to Main Route Table.)
 3. Custom Route Table and Associate All Public Subnets
