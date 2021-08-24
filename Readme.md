@@ -1,4 +1,5 @@
-# When we cureate custom VPC in AWS, Main Route-Table, Security Group and Network ACL will automatically create. Next need to create 
+# When we cureate custom VPC in AWS,
+- Main Route-Table, Security Group and Network ACL will automatically create. Next need to create 
 0. Subnets, like public subnets and private subnet
 1. Custom Route-Table, if need
 2. Internet Gateway for public instances
