@@ -3,13 +3,13 @@
 - Security Group
 - Network ACL will automatically create.
 
-#  Next need to create 
+#  Next need to create, if need..
 1. Subnets, like public subnets and private subnet
 2. Custom Route-Table, if need
 3. Internet Gateway for public subnets.
 4. Default Route to IGW in Route Table
 5. NAT Gateway that is internet access for Private subnets.
-6. Default Route to NAT Gateway
+6. Default Route to NAT Gateway in Route Table that associated with private subnets.
 
 # This project will create following properties...
  - [custom-vpc.yaml](./Templates/custom-vpc.yaml)
